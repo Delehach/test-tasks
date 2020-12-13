@@ -18,4 +18,4 @@ npm run build
 ```
 
 ### Demo
-[FPSmax test task demo](https://github.com/facebook/create-react-app)
+[FPSmax test task demo](https://delehach.github.io/fpsmax-test-task-demo)
