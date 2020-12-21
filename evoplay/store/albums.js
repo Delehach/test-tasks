@@ -67,7 +67,7 @@ export const actions = {
         };
 
         try {
-            const data = await fetch('http://jsonplaceholder.typicode.com/photos');
+            const data = await fetch('https://jsonplaceholder.typicode.com/photos');
             const res = await data.json();
 
             const albums = state.alphabet.split('').map((char, i) => {
