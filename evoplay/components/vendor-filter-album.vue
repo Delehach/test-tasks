@@ -2,7 +2,7 @@
     <div class="vendor-filter__album">
         <h3 class="vendor-filter__album-char">{{ album.char }}</h3>
         <div v-for="photo of album.photos" :key="photo.id" class="vendor-filter__item">
-            <img :src="photo.thumbnailUrl" :alt="photo.title" class="vendor-filter__item-photo">
+            <img :src="photo.thumbnailUrl" class="vendor-filter__item-photo">
             <p class="vendor-filter__item-name">{{ photo.name }}</p>
             <button
                 v-if="photo.featured"

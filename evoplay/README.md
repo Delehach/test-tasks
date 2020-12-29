@@ -16,4 +16,4 @@ npm run build
 ```
 
 ### Demo
-[EvoPlay test task demo](https://delehach.github.io/evoplay-test-task-demo)
+[EvoPlay test task demo](https://delehach.github.io/test-tasks/evoplay-demo)
