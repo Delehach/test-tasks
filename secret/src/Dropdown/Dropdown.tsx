@@ -1,4 +1,4 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
+import React, {ReactNode, useLayoutEffect, useRef, useState} from 'react';
 import './Dropdown.css';
 
 interface DropdownProps {
@@ -7,7 +7,7 @@ interface DropdownProps {
 }
 
 export function Dropdown({target, children}: DropdownProps) {
-	const [dropdownDisplay, setDropdownDisplay] = useState<boolean>(true);
+	const [dropdownDisplay, setDropdownDisplay] = useState<boolean>(false);
 	const [dropdownPosition, setDropDownPosition] = useState<string>('auto');
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const dropdownRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export function Dropdown({target, children}: DropdownProps) {
 		bottom: dropdownPosition,
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if(buttonRef && buttonRef.current && dropdownRef && dropdownRef.current) {
 			const btnData = buttonRef.current.getBoundingClientRect();
 			const dropdownData = dropdownRef.current.getBoundingClientRect();
@@ -26,7 +26,7 @@ export function Dropdown({target, children}: DropdownProps) {
 				setDropDownPosition(`${btnData.height}px`);
 			}
 		}
-	}, []);
+	}, [dropdownDisplay])
 
 	return (
 		<div className='dropdown'>
