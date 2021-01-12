@@ -27,13 +27,17 @@ export default {
     products: [],
   }),
   async created() {
-    const res = await fetch('http://54.39.188.42/');
-    const list = await res.text();
-    this.products = JSON.parse(atob(list)).map(product => ({
-      ...product,
-      price: Math.floor(product.price).toFixed(2),
-      options: product.options[0],
-    }));
+    try {
+      const res = await fetch('http://54.39.188.42/');
+      const list = await res.text();
+      this.products = JSON.parse(atob(list)).map(product => ({
+        ...product,
+        price: Math.floor(product.price).toFixed(2),
+        options: product.options[0],
+      }));
+    } catch (e) {
+      console.error(`Fetch failed with error: ${e.message}`);
+    }
   },
 }
 </script>
