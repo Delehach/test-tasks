@@ -218,24 +218,6 @@ export default {
       this.data.companyAddress = addressData.newVal;
     }
   },
-  mounted() {
-    setTimeout(() => {
-      this.data = {
-        firstName: '',
-        lastName: '',
-        personalPhone: '',
-        email: '',
-        sendEmailCheckbox: false,
-        companyName: '',
-        companyAddress: '',
-        companyPhone: '',
-        password: '',
-        confirmedPassword: '',
-        acceptedPolicyCheckbox: false,
-      }
-
-    }, 2000)
-  }
 }
 </script>
 
