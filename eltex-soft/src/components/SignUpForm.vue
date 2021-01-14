@@ -31,7 +31,7 @@
         </ValidationProvider>
 
         <label class="form__label form__checkbox-label">
-          <input class="form__label-checkbox" type="checkbox">
+          <input class="form__label-checkbox" type="checkbox" v-model="data.sendEmailCheckbox">
           <strong class="form__label-name">Send me email in plain text</strong>
         </label>
       </div>
