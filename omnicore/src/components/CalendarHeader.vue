@@ -215,12 +215,11 @@ export default {
   }
 
   &__modal-content {
-    padding: 8px;
+    padding: 6px;
   }
 
   &__search-items {
     max-height: 300px;
-    padding: 8px;
     overflow-y: scroll;
   }
 

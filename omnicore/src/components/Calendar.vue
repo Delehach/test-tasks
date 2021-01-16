@@ -27,7 +27,7 @@ export default {
   },
   data: () => ({
     currentDate: new Date(),
-    selectedDay: null,
+    selectedDay: '',
     daysEvents: [],
   }),
   computed: {
@@ -122,6 +122,10 @@ export default {
       this.selectedDay = day;
     },
     setEventToDay(text) {
+      if (this.selectedDay === '') {
+        alert('Пожалуйста, выбирите день для котого Вы хотите создать событие');
+        return;
+      }
       this.daysEvents.push({
         date: this.selectedDay,
         text,
