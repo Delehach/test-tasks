@@ -2,12 +2,12 @@
   <div class="header-wrap">
     <div class="header grid">
       <div class="header__controls">
-        <button type="button" class="header__controls-btn" @click="showModalHandler">Добавить</button>
+        <button type="button" class="header__controls-btn" @click="showEventsModalHandler">Добавить</button>
         <button type="button" class="header__controls-btn">Обновить</button>
 
-        <form class="header__modal" @submit.prevent="submitHandler" v-show="showModal">
+        <form class="header__modal" @submit.prevent="submitHandler" v-show="showEventsModal">
           <div class="header__modal-content">
-            <button type="button" class="header__modal-hide-btn" @click="showModal = false">X</button>
+            <button type="button" class="header__modal-hide-btn" @click="showEventsModal = false">X</button>
             <input
               v-model="eventText"
               ref="event_input"
@@ -23,10 +23,17 @@
 
       <label class="header__search">
         <i class="header__search-icon"></i>
-        <input v-model="searchVal" class="header__search-input" type="text" placeholder="Событие, дата, учасник">
+        <input
+          v-model="searchVal"
+          @focus="focus"
+          @blur="blur"
+          class="header__search-input"
+          type="text"
+          placeholder="Событие, дата, учасник"
+        >
       </label>
 
-      <div class="header__modal header__search-modal" v-show="showSearchResult">
+      <div class="header__modal header__search-modal" v-show="showSearchResult && showSearchModal">
         <div class="header__modal-content">
           <ul class="header__search-items" v-if="searchResult.length">
             <li
@@ -57,7 +64,8 @@ export default {
   data: () => ({
     eventText: '',
     searchVal: '',
-    showModal: false,
+    showEventsModal: false,
+    showSearchModal: false,
   }),
   computed: {
     searchResult() {
@@ -69,22 +77,31 @@ export default {
     },
   },
   methods: {
-    showModalHandler() {
-      this.showModal = true;
+    submitHandler() {
+      this.$emit('setEventToDay', this.eventText);
+      this.showEventsModal = false;
+      this.eventText = '';
+    },
+    showEventsModalHandler() {
+      this.showEventsModal = true;
       this.searchVal = '';
       this.$nextTick(() => {
         this.$refs.event_input.focus();
       });
     },
-    submitHandler() {
-      this.$emit('setEventToDay', this.eventText);
-      this.showModal = false;
-      this.eventText = '';
-    },
     setSearchEventsDateHandler(date) {
       this.$emit('setSearchEventsDate', date);
       this.searchVal = '';
-      this.showModal = false;
+      this.showEventsModal = false;
+      this.showSearchModal = false;
+    },
+    focus() {
+      this.eventText = '';
+      this.showSearchModal = true;
+      this.showEventsModal = false;
+    },
+    blur() {
+      setTimeout(() => this.showSearchModal = false, 150);
     },
   },
   filters: {
@@ -214,7 +231,7 @@ export default {
     box-shadow: 0 0 4px 2px #b1b1b1;
   }
 
-  &__modal-content {
+  &__search-modal &__modal-content {
     padding: 6px;
   }
 
@@ -252,6 +269,7 @@ export default {
     color: #2d2d2d;
   }
 }
+
 @media only screen and (max-width: 470px) {
   .header-wrap {
     padding: 24px 12px 16px;
