@@ -12,6 +12,7 @@
         :class="['calendar__day', {
           'is-current': day.current,
           'is-selected':day.selected,
+          'is-disabled':day.disabledDay,
           'has-event': day.events.length
         }]"
         v-for="(day, idx) of data.days"
@@ -123,11 +124,18 @@ export default {
     background-color: rgba(193, 228, 255, .2);
   }
 
+  &__day.is-disabled {
+    pointer-events: none;
+  }
+
+  &__day.is-disabled * {
+    opacity: .5;
+  }
+
   &__day.is-current .calendar__weekday,
   &__day.is-current .calendar__weekday *,
   &__day.is-current .calendar__day-number {
     font-weight: bold;
-    color: #8c8c8c;
   }
 
   &__weekday {

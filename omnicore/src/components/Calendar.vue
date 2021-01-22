@@ -40,7 +40,7 @@ export default {
     month() {
       return this.currentDate.getMonth();
     },
-    getDays() {
+    setDays() {
       const currentMonthLength = this.getMonthLength(this.year, this.month + 1, 0);
       const prevMonthLength = this.getMonthLength(this.year, this.month, 0);
       const firstDayIndex = new Date(this.year, this.month, 1).getDay();
@@ -57,6 +57,7 @@ export default {
       const daysInCurrentMonth = this.generateDays({
         daysCount: currentMonthLength,
         month: this.month,
+        disabledDay: false,
       });
 
       const daysInNextMont = this.generateDays({
@@ -67,7 +68,7 @@ export default {
       return [...daysInPrevMonth, ...daysInCurrentMonth, ...daysInNextMont];
     },
     days() {
-      return this.getDays.map(day => {
+      return this.setDays.map(day => {
         if (day.fullDate === this.selectedDay) {
           return {
             ...day,
@@ -86,7 +87,7 @@ export default {
       return new Date(year, month, day).getDate();
     },
     generateDays(data) {
-      const {daysCount, month, prevMonthLength} = data;
+      const {daysCount, month, prevMonthLength, disabledDay = true} = data;
       const now = new Date();
       return new Array(daysCount).fill({}).map((day, idx) => {
         const dayNumber = prevMonthLength ? prevMonthLength - daysCount + idx + 1 : idx + 1;
@@ -103,6 +104,7 @@ export default {
           events: this.daysEvents.filter(event => event.date.toLocaleDateString() === fullDate.toLocaleDateString()),
           current: idx + 1 === now.getDate() && this.month === now.getMonth(),
           selected: false,
+          disabledDay,
         }
       });
     },
@@ -149,7 +151,9 @@ export default {
     Для быстрого добавление события кликните на нужный день, затем нажмите кнопку добавить.
 
     Для поиска введите название события. Чтоб отобразить искомое событие, кликните по нему - выведется нужный месяц.
-    `)
+
+    Созданные события сохраняются в LocalStorage
+    `);
   }
 }
 </script>
