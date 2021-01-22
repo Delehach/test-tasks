@@ -14,6 +14,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Demo
-[EltexSoft test task demo](https://delehach.github.io/test-tasks/eltex-soft-demo)
